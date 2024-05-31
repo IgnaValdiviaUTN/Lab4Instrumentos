@@ -1,0 +1,16 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Lista from './componentes/Lista/Lista.tsx'
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <Routes>
+      <Route index element={<Lista/>}/>
+      <Route path='*' element={<Lista/>}/>
+    </Routes>
+    </BrowserRouter>
+  </React.StrictMode>,
+)
