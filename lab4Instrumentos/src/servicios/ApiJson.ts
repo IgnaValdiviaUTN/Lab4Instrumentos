@@ -1,6 +1,38 @@
 //Importo la entidad Instrumentos para colocar el tipo del array JSON
 import Instrumento from '../entidades/Instrumento';
 
+//funcion para obtener los datos con el fetch
+export async function getInstrumentosFetchJSON(){
+    const urlServer = 'http://localhost/api.php';
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	return await response.json() ;
+}
+
+
+export async function getInstrumentoXIdFecth(id:number){
+	const urlServer = 'http://localhost/api.php?id='+id;
+    console.log(urlServer);
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	return await response.json() as Instrumento;
+    
+}
+
+//Funcion para tomar los datos
 export function  getInstrumentosJSON() {
     //Tomo los datos del JSON
     let datos:Instrumento[] =[{
