@@ -1,3 +1,4 @@
+import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 type CardInstrumentoParametros = {
@@ -24,6 +25,9 @@ function CardInstrumento(args: CardInstrumentoParametros) {
         <Card.Subtitle className="mb-2 text-muted">${args.precio}</Card.Subtitle>
         <Card.Text style={{color:colorText}}>{costoEnvio}</Card.Text>
         <Card.Text>vendidos: {args.cantidadVendida}</Card.Text>
+        <a href={`detalle/${args.id}`}>
+        <Button variant="primary">Ver Detalle</Button>{' '}
+        </a>
       </Card.Body>
     </Card>
 

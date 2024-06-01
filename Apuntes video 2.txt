@@ -58,6 +58,14 @@ HTML
 Operador condional:
 const = objeto ? true : false;
 
+Type -> podemos definir la estructura de un objeto que le pasaremos a un componente
+type Objeto = {
+id:number;
+}
+
+function Componente(args: Objeto){
+args.id}
+
 Clases typescript
 Podemos definir al objeto en un archivo typescript
 Objeto.ts ->
