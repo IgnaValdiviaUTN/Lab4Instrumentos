@@ -1,8 +1,110 @@
-//Importo la entidad Instrumentos para colocar el tipo del array JSON
+
 import Instrumento from '../entidades/Instrumento';
 
-//funcion para obtener los datos con el fetch
+
+
+//funcion para obtener los datos con el fetch del back JAVA
 export async function getInstrumentosFetchJSON(){
+    const urlServer = 'http://localhost:8080/instrumento';
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	return await response.json() ;
+}
+
+export async function getCategoriasFetchJSON(){
+    const urlServer = 'http://localhost:8080/categoria';
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	return await response.json() ;
+}
+
+export async function getInstrumentosXCategoriaFetchJSON(id:Number){
+    const urlServer = 'http://localhost:8080/instrumento/categoria/' + id;
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	return await response.json() ;
+}
+
+//Obtener por id
+export async function getInstrumentoXIdFecth(id:number){
+	const urlServer = 'http://localhost:8080/instrumento/'+id;
+    console.log(urlServer);
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	return await response.json() as Instrumento;
+    
+}
+
+//ELIMINAR
+export async function deleteInstrumentoXId(id:number){
+	
+	let urlServer = 'http://localhost:8080/instrumento/'+id;
+	await fetch(urlServer, {
+		method: 'DELETE',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+}
+
+//Guardar
+export async function saveInstrumento(instrumento?: Instrumento){
+	
+	let urlServer = 'http://localhost:8080/instrumento';
+
+    let method:string = "POST";
+	if(instrumento && instrumento.id > 0){
+        urlServer = 'http://localhost:8080/instrumento/'+ instrumento.id;
+		method = "PUT";
+	}
+    console.log(JSON.stringify(instrumento));
+
+	await fetch(urlServer, {
+        "method": method,
+        "body": JSON.stringify(instrumento),
+        "headers": {
+          "Content-Type": 'application/json'
+        }
+      });
+}
+
+
+
+
+
+
+
+//funcion para obtener los datos con el fetch del back PHP
+export async function getInstrumentosFetchJSONPHP(){
     const urlServer = 'http://localhost/api.php';
 	const response = await fetch(urlServer, {
 		method: 'GET',
@@ -17,7 +119,7 @@ export async function getInstrumentosFetchJSON(){
 }
 
 
-export async function getInstrumentoXIdFecth(id:number){
+export async function getInstrumentoXIdFecthPHP(id:number){
 	const urlServer = 'http://localhost/api.php?id='+id;
     console.log(urlServer);
 	const response = await fetch(urlServer, {
@@ -32,10 +134,10 @@ export async function getInstrumentoXIdFecth(id:number){
     
 }
 
-//Funcion para tomar los datos
+//Funcion para tomar los datos desde el JSON
 export function  getInstrumentosJSON() {
     //Tomo los datos del JSON
-    let datos:Instrumento[] =[{
+    let datos/*:Instrumento[]*/ =[{
         "id":"1",
         "instrumento": "Mandolina Instrumento Musical Stagg Sunburst",
         "marca": "Stagg",

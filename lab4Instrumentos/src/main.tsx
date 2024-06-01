@@ -6,6 +6,8 @@ import Lista from './componentes/Lista/Lista.tsx'
 import DetalleInstrumento from './componentes/DetalleInstrumento/DetalleInstrumento.tsx'
 import Home from './componentes/Home/Home.tsx'
 import DondeEstamos from './componentes/DondeEstamos/DondeEstamos.tsx'
+import Grilla from './componentes/Grilla/Grilla.tsx'
+import Formulario from './componentes/Formulario/Formulario.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -15,6 +17,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Route path='/home' element={<Home/>}/>
       <Route path='/productos' element={<Lista/>}/>
       <Route path='/dondeEstamos' element={<DondeEstamos/>}/>
+      <Route path='/grilla' element={<Grilla/>}/>
+      <Route path='/formulario/:id' element={<Formulario/>}/>
       <Route path='/detalle'>
         <Route path=':id' element={<DetalleInstrumento/>}/>
       </Route>

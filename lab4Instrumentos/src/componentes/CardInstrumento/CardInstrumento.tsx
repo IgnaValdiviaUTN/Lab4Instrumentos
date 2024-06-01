@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 type CardInstrumentoParametros = {
-    id:string ;
+    id:number;
 	instrumento:string ;
 	//marca:string ;
 	//modelo:string ;
@@ -19,7 +19,7 @@ function CardInstrumento(args: CardInstrumentoParametros) {
   return (
     <>
     <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={`img/${args.imagen}`} style={{padding:'5px'}}></Card.Img>
+        <Card.Img variant="top" src={args.imagen} style={{padding:'5px'}}></Card.Img>
       <Card.Body>
         <Card.Title>{args.instrumento}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">${args.precio}</Card.Subtitle>
