@@ -25,9 +25,10 @@ const DetalleInstrumento = () => {
   return (
     <>
     <Menu></Menu>
-    <div className="row p-5" style={{gap:'15px',display:'flex', justifyContent:'space-evenly' }}>
+    <div style={{width:'100vw',height:'100vh'}}>
+    <div className="row p-5" style={{gap:'15px',display:'flex', justifyContent:'space-evenly',  }}>
         <Card style={{width:'45%', display:'flex',alignItems:'center',gap:'15px'}}>
-        <Card.Img variant="top" src={`http://localhost:5173/img/${instrumento?.imagen}`} style={{maxWidth:'250px'}}/>
+        <Card.Img variant="top" src={instrumento?.imagen} style={{maxWidth:'250px'}}/>
         <Card.Body>
           <Card.Text>
             Descripción:
@@ -48,6 +49,7 @@ const DetalleInstrumento = () => {
       </Card.Body>
     </Card>
 
+      </div>
       </div>
     </>
   )

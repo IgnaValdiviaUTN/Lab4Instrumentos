@@ -1,5 +1,6 @@
 
 import Instrumento from '../entidades/Instrumento';
+import Pedido from '../entidades/Pedido';
 
 
 
@@ -45,6 +46,8 @@ export async function getInstrumentosXCategoriaFetchJSON(id:Number){
 	console.log(response);
 	return await response.json() ;
 }
+
+
 
 //Obtener por id
 export async function getInstrumentoXIdFecth(id:number){
@@ -95,6 +98,29 @@ export async function saveInstrumento(instrumento?: Instrumento){
           "Content-Type": 'application/json'
         }
       });
+}
+
+//Guardar pedido con detalles
+export async function savePedido(pedido: Pedido){
+	
+	let urlServer = 'http://localhost:8080/pedido';
+
+    console.log(JSON.stringify(pedido));
+
+	const response = await fetch(urlServer, {
+        method: "POST",
+        body: JSON.stringify(pedido),
+        headers: {
+            "Content-Type": 'application/json'
+        }
+    });
+
+      if (!response.ok) {
+        throw new Error('Error en la creación del pedido');
+    }
+
+    const id = await response.json();
+    return id;
 }
 
 

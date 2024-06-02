@@ -1,3 +1,4 @@
+import { ChangeEventHandler } from "react";
 import Categoria from "./Categoria";
 
 export default class Instrumento{
@@ -14,4 +15,5 @@ export default class Instrumento{
 		id: 0,
 		denominacion: ""
 	};
+	addCarrito?:ChangeEventHandler;
 }
