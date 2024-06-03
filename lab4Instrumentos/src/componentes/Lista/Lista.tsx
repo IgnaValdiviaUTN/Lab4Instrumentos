@@ -6,6 +6,7 @@ import Menu from '../Menu/Menu';
 import Carrito from '../Carrito/Carrito';
 import { CarritoContextProvider } from '../../context/CarritoContext';
 
+
 function Lista() {
     const [cards,setCards] = useState<Instrumento[]>([])
 
@@ -17,6 +18,7 @@ function Lista() {
     useEffect(() =>{
         getInstrumentos();
     },[]);
+
 
   return (
     <>

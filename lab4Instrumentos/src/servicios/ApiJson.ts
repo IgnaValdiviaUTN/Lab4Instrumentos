@@ -1,6 +1,22 @@
 
 import Instrumento from '../entidades/Instrumento';
 import Pedido from '../entidades/Pedido';
+import PreferenceMP from '../entidades/PreferenceMP';
+
+
+
+export async function createPreferenceMP(idPedido:number){
+    let urlServer = 'http://localhost:8080/pedido/mp/'+ idPedido;
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+    return await response.json() as PreferenceMP;   
+}   
 
 
 

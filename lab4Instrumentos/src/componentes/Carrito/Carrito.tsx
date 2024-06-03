@@ -1,7 +1,12 @@
-
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { useCarrito } from "../../hooks/useCarrito"
 import DetallePedido from "../../entidades/DetallePedido";
 import { Button, Card } from "react-bootstrap";
+import PreferenceMP from "../../entidades/PreferenceMP";
+import { useState } from "react";
+import { createPreferenceMP } from "../../servicios/ApiJson";
+
+
 
 type Carrito = {
    detallePedido: DetallePedido;
@@ -26,18 +31,32 @@ function CartItem ({ detallePedido }:Carrito) {
 const Carrito = () => {
 
     const { cart, limpiarCarrito, crearDetallePedido } = useCarrito();
+    const total = cart.reduce((total, detalle) => total + detalle.instrumento.precio * detalle.cantidad, 0);
+
+    const [idPreference, setIdPreference] = useState<string>('');
+    //MI CREDENCIAL - TEST-f08f2d01-1222-43e9-a16c-5404897b393a
+    initMercadoPago('TEST-3c3ecd60-bab2-4ea9-b504-5c6ecdb5e8a5', { locale: 'es-AR' });
 
   const handleGuardarCarrito = async () => {
     console.log(cart)
     try {
-       let idPedido = await crearDetallePedido();
+      if(total > 0){
+        let idPedido = await crearDetallePedido();
       alert(" El pedido con id: " + idPedido +" se concretó correctamente!");
+
+
+        const response:PreferenceMP = await createPreferenceMP(idPedido);
+        console.log("Preference id: " + response.id);
+        if(response)
+            setIdPreference(response.id);
+    }else{
+        alert("Agregue al menos un instrumento al carrito");
+    }
     } catch (error) {
       console.error('Error al guardar el carrito:', error);
     }
   };
 
-  const total = cart.reduce((total, detalle) => total + detalle.instrumento.precio * detalle.cantidad, 0);
   
   return (
     <div>
@@ -64,6 +83,9 @@ const Carrito = () => {
         <Button onClick={handleGuardarCarrito}>
             Finalizar Pedido
         </Button>
+        </div>
+        <div>
+          {(idPreference) ? (<Wallet initialization={{ preferenceId: idPreference, redirectMode:"blank" }} customization={{  texts:{ valueProp: 'smart_option'}}} />) : '' }
         </div>
       </aside>
     </div>
