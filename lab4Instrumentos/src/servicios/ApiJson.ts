@@ -2,9 +2,32 @@
 import Instrumento from '../entidades/Instrumento';
 import Pedido from '../entidades/Pedido';
 import PreferenceMP from '../entidades/PreferenceMP';
+import Usuario from '../entidades/Usuario';
 
 
+//Verificar Usuario
+export async function verificarUsuario(usuario: Usuario){
+	
+	let urlServer = 'http://localhost:8080/user';
 
+    console.log(JSON.stringify(usuario));
+
+	const response = await fetch(urlServer, {
+        method: "POST",
+        body: JSON.stringify(usuario),
+        headers: {
+            "Content-Type": 'application/json'
+        }
+    });
+
+      if (!response.ok) {
+        throw new Error('Error en la verificacion del usuario');
+    }
+
+    return await response.json() as Usuario;
+}
+
+//MercadoPago
 export async function createPreferenceMP(idPedido:number){
     let urlServer = 'http://localhost:8080/pedido/mp/'+ idPedido;
 	const response = await fetch(urlServer, {
