@@ -5,6 +5,35 @@ import PreferenceMP from '../entidades/PreferenceMP';
 import Usuario from '../entidades/Usuario';
 
 
+
+export async function getBarChart(){
+    const urlServer = 'http://localhost:8080/pedido/barchart';
+	const response = await fetch(urlServer, {
+		method: 'GET',
+        headers: {
+			'Content-type': 'application/json',
+			'Access-Control-Allow-Origin':'*'
+		},
+        mode: 'cors'
+	});
+	console.log(response);
+	if (!response.ok) {
+        throw new Error('Error al obtener los datos del gráfico');
+    }
+
+    const data = await response.json();
+
+    // Transformar los datos al formato esperado por el gráfico
+    const formattedData = [["Month-Year", "Pedidos"]];
+    data.forEach(item => {
+        const monthYear = `${item.year}-${String(item.month).padStart(2, '0')}`;
+        formattedData.push([monthYear, item.count]);
+    });
+    console.log(formattedData);
+
+    return formattedData;
+}
+
 //Verificar Usuario
 export async function verificarUsuario(usuario: Usuario){
 	

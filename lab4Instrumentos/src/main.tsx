@@ -7,6 +7,7 @@ import Login from './componentes/Login/Login.tsx'
 import { RutaPrivada } from './acceso/RutaPrivada.tsx'
 import { Roles } from './entidades/Roles.ts'
 import RolUsuario from './acceso/RolAcceso.tsx'
+import Charts from './componentes/Charts/Charts.tsx'
 
 
 const Home = lazy(() => import('./componentes/Home/Home.tsx'));
@@ -33,6 +34,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
         <Route path='/grilla' element={<RutaPrivada><Grilla/></RutaPrivada> }/>
 
+        <Route>
+          <Route path='/dashboard' element={<Charts/>}/>
+        </Route>
 
         <Route element={<RolUsuario rol={Roles.ADMIN} />}>
           <Route path='/formulario/:id' element={<RutaPrivada><Formulario/></RutaPrivada>}/>
