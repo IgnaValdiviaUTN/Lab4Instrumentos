@@ -53,7 +53,7 @@ public class PedidoService {
 
     }
 
-    public List<PedidoBarDto> getPedidosBarChart() {
-        return pedidoRepository.countPedidosBarChart();
+    public List<PedidoBarDto> getPedidosByYear(int year) {
+        return pedidoRepository.countPedidosBarChartByYear(year);
     }
 }

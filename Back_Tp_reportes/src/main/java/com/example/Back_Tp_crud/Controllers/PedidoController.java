@@ -6,6 +6,7 @@ import com.example.Back_Tp_crud.Entity.Pedido;
 import com.example.Back_Tp_crud.Entity.PreferenceMP;
 import com.example.Back_Tp_crud.Service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +33,12 @@ public class PedidoController {
         return ResponseEntity.ok(mercadoPagoController.getPreference(id));
     }
 
-    @GetMapping("/barchart")
-    ResponseEntity<List<PedidoBarDto>> getById(){
-        return ResponseEntity.ok(pedidoService.getPedidosBarChart());
+    @GetMapping("/bar-chart/{year}")
+    public ResponseEntity<List<PedidoBarDto>> getPedidosBarChart(@PathVariable Integer year) {
+        List<PedidoBarDto> pedidos = pedidoService.getPedidosByYear(year);
+        for (PedidoBarDto pedido : pedidos){
+            System.out.println(pedido.toString());
+        };
+        return new ResponseEntity<>(pedidos, HttpStatus.OK);
     }
 }

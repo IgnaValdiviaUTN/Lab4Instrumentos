@@ -5,9 +5,14 @@ import PreferenceMP from '../entidades/PreferenceMP';
 import Usuario from '../entidades/Usuario';
 
 
+/*
+export const getBarChartByYear = (year: number) => {
+    return fetch(`/api/pedidos/bar-chart?year=${year}`)
+      .then(response => response.json());
+  };*/
 
-export async function getBarChart(){
-    const urlServer = 'http://localhost:8080/pedido/barchart';
+export async function getBarChartByYear(year:number){
+    const urlServer = 'http://localhost:8080/pedido/bar-chart/'+year;
 	const response = await fetch(urlServer, {
 		method: 'GET',
         headers: {
@@ -16,22 +21,13 @@ export async function getBarChart(){
 		},
         mode: 'cors'
 	});
-	console.log(response);
+	//console.log(response);
 	if (!response.ok) {
         throw new Error('Error al obtener los datos del gráfico');
     }
 
     const data = await response.json();
-
-    // Transformar los datos al formato esperado por el gráfico
-    const formattedData = [["Month-Year", "Pedidos"]];
-    data.forEach(item => {
-        const monthYear = `${item.year}-${String(item.month).padStart(2, '0')}`;
-        formattedData.push([monthYear, item.count]);
-    });
-    console.log(formattedData);
-
-    return formattedData;
+    return data;
 }
 
 //Verificar Usuario
