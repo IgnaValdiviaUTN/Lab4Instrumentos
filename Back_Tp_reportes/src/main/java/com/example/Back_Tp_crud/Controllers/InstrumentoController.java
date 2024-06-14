@@ -1,12 +1,17 @@
 package com.example.Back_Tp_crud.Controllers;
 
 import com.example.Back_Tp_crud.Entity.Instrumento;
+import com.example.Back_Tp_crud.Entity.InstrumentoPrintManager;
 import com.example.Back_Tp_crud.Service.InstrumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,6 +21,8 @@ public class InstrumentoController {
 
     @Autowired
     private InstrumentoService instrumentoService;
+    @Autowired
+    private InstrumentoPrintManager printManager;
 
     @GetMapping
     ResponseEntity<List<Instrumento>> getAll(){
@@ -54,6 +61,24 @@ public class InstrumentoController {
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         instrumentoService.deleteInstrumento(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/generarPDF/{id}")
+    public ResponseEntity<byte[]> generatePDF(@PathVariable("id") Long instrumentoId) {
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            printManager.generarInstrumentoPDF(instrumentoId, outputStream);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType("application/pdf"));
+            headers.setContentDispositionFormData("attachment", "instrumento.pdf");
+            headers.setCacheControl("must-revalidate, post-check=0, pre-check=0");
+
+            return new ResponseEntity<>(outputStream.toByteArray(), headers, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     /*

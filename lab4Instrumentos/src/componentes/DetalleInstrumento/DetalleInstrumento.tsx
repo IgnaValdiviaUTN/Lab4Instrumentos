@@ -22,6 +22,10 @@ const DetalleInstrumento = () => {
     const costoEnvio = (instrumento?.costoEnvio === "0.00") ? 'Envió gratis a todo el país' : 'Costo de envio: $' + instrumento?.costoEnvio;
     const colorText = (instrumento?.costoEnvio === "0.00") ? 'green' : 'orange';
 
+    const handlePDF = (instrumento) => {
+      window.open(`http://localhost:8080/instrumento/generarPDF/${instrumento.id}`, "_blank");
+    };
+
   return (
     <>
     <Menu></Menu>
@@ -45,7 +49,9 @@ const DetalleInstrumento = () => {
         <Card.Text>Marca: {instrumento?.marca}</Card.Text>
         <Card.Text>Modelo: {instrumento?.modelo}</Card.Text>
         <Card.Text style={{color:colorText}}>{costoEnvio}</Card.Text>
-        <Card.Link href="#"><Button variant="primary">Agregar al carrito</Button></Card.Link>
+        <div>
+          <Button variant="danger" onClick={() => handlePDF(instrumento)}>Descargar PDF</Button>
+        </div>
       </Card.Body>
     </Card>
 

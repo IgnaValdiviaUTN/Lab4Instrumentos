@@ -19,7 +19,7 @@ public class Instrumento extends BaseEntity {
     private String marca;
     private String modelo;
     private String imagen;
-    private String precio;
+    private Double precio;
     private String costoEnvio;
     private String cantidadVendida;
     private String descripcion;

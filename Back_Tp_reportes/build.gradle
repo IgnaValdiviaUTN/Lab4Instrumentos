@@ -32,6 +32,12 @@ dependencies {
 	implementation('com.mercadopago:sdk-java:2.1.7') {
 		exclude group: 'org.sonatype.sisu', module: 'sisu-guice'
 	}
+	implementation 'com.itextpdf:itext7-core:7.1.15'
+	implementation 'org.apache.commons:commons-email:1.5'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.apache.poi:poi-ooxml:5.2.3'
+	implementation 'org.apache.poi:poi:5.2.3'
+	implementation 'org.apache.xmlbeans:xmlbeans:5.1.1'
 }
 
 tasks.named('test') {
