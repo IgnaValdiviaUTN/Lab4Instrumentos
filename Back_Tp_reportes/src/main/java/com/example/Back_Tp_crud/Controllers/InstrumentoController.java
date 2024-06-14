@@ -58,7 +58,7 @@ public class InstrumentoController {
     /*deleteById(id): Maneja una solicitud DELETE para eliminar una entidad por su Id
      * Devuelve una respuesta HTTP con estado 200 OK. */
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
         instrumentoService.deleteInstrumento(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

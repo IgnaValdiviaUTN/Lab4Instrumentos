@@ -56,38 +56,11 @@ public class PedidoService {
 
 
     public List<Map<String, Object>> getPedidosPorMes() {
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        return pedidos.stream()
-                .collect(Collectors.groupingBy(p -> p.getFechaPedido().getMonth(), Collectors.counting()))
-                .entrySet()
-                .stream()
-                .map(entry -> {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("mes", entry.getKey().toString());
-                    map.put("cantidad", entry.getValue());
-                    return map;
-                })
-                .collect(Collectors.toList());
+        return pedidoRepository.getPedidosPorMes();
     }
 
     public List<Map<String, Object>> getPedidosPorInstrumento() {
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        Map<String, Integer> conteoInstrumentos = new HashMap<>();
-        pedidos.forEach(pedido -> {
-            pedido.getDetalles().forEach(detalle -> {
-                String instrumento = detalle.getInstrumento().getInstrumento();
-                conteoInstrumentos.put(instrumento, conteoInstrumentos.getOrDefault(instrumento, 0) + detalle.getCantidad());
-            });
-        });
-        return conteoInstrumentos.entrySet()
-                .stream()
-                .map(entry -> {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("instrumento", entry.getKey());
-                    map.put("cantidad", entry.getValue());
-                    return map;
-                })
-                .collect(Collectors.toList());
+        return pedidoRepository.getPedidosPorInstrumento();
     }
 
     public List<Pedido> getPedidosByFechas(Date fechaInicio, Date fechaFin) {

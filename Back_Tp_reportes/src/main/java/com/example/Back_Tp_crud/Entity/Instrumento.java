@@ -23,6 +23,7 @@ public class Instrumento extends BaseEntity {
     private String costoEnvio;
     private String cantidadVendida;
     private String descripcion;
+    private boolean eliminado;
 
     // Relación ManyToOne con la entidad Categoria
     @ManyToOne

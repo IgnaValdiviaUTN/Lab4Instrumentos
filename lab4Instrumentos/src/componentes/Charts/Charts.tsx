@@ -4,27 +4,36 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button } from "react-bootstrap";
 
-
 const Charts = () => {
-  
   const [pedidosPorMes, setPedidosPorMes] = useState([]);
   const [pedidosPorInstrumento, setPedidosPorInstrumento] = useState([]);
-  useEffect(()=>{
+
+  useEffect(() => {
     const fetchPedidosPorMes = async () => {
       const response = await axios.get('http://localhost:8080/pedido/chart-mes');
+      console.log(response.data);
       setPedidosPorMes(response.data);
     };
 
     const fetchPedidosPorInstrumento = async () => {
       const response = await axios.get('http://localhost:8080/pedido/chart-instrumento');
+      console.log(response.data);
       setPedidosPorInstrumento(response.data);
     };
 
     fetchPedidosPorMes();
     fetchPedidosPorInstrumento();
-  },[]);
-  const dataPorMes = [['Mes', 'Cantidad'], ...pedidosPorMes.map(item => [item.mes, item.cantidad])];
-  const dataPorInstrumento = [['Artículo', 'Cantidad'], ...pedidosPorInstrumento.map(item => [item.instrumento, item.cantidad])];
+  }, []);
+
+  // Convertir el número del mes a nombre de mes
+  const getMonthName = (monthNumber) => {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+    return date.toLocaleString('default', { month: 'long' });
+  };
+
+  const dataPorMes = [['Mes', 'Cantidad'], ...pedidosPorMes.map(item => [getMonthName(item.Mes), item.Cantidad])];
+  const dataPorInstrumento = [['Artículo', 'Cantidad'], ...pedidosPorInstrumento.map(item => [item.Instrumento, item.Cantidad])];
 
   const generarExcel = async () => {
     try {
@@ -115,7 +124,6 @@ const Charts = () => {
             options={{ title: 'Pedidos por Instrumento' }}
           />
         </div>
-        
       </div>
       <div style={{padding:'25px', width:'50%'}}>
         <h3>Reporte Excel</h3>
@@ -125,7 +133,6 @@ const Charts = () => {
         </div>
         <Button variant="success" onClick={generarExcel}>Generar Excel</Button>
       </div>
-      
     </div>
   );
 };

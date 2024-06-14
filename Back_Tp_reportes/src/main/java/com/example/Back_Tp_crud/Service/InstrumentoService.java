@@ -3,6 +3,7 @@ package com.example.Back_Tp_crud.Service;
 import com.example.Back_Tp_crud.Entity.Instrumento;
 import com.example.Back_Tp_crud.Repository.InstrumentoRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class InstrumentoService {
     @Autowired
     private InstrumentoRepository instrumentoRepository;
     public List<Instrumento> getAll(){
-        return instrumentoRepository.findAll();
+        return instrumentoRepository.findAllActive();
     }
     public Instrumento getById(Long id){
         return instrumentoRepository.findById(id)
@@ -42,8 +43,9 @@ public class InstrumentoService {
         return instrumentoRepository.save(instrumento);
     }
 
-    public void deleteInstrumento(Long id){
-        instrumentoRepository.deleteById(id);
+    @Transactional
+    public void deleteInstrumento(Long id) {
+        instrumentoRepository.logicalDeleteById(id);
     }
 
     public List<Instrumento> getByCategoria(Long id){

@@ -62,7 +62,7 @@ const Formulario = () => {
     const guardar = async () =>{
         if (validate()) {
         await saveInstrumento(instrumento);
-        //navigate('/grilla');
+        navigate('/grilla');
         }
     }
 

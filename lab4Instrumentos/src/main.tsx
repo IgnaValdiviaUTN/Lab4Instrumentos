@@ -35,7 +35,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path='/grilla' element={<RutaPrivada><Grilla/></RutaPrivada> }/>
 
         <Route>
-          <Route path='/dashboard' element={<Charts/>}/>
+          <Route path='/dashboard' element={<RutaPrivada><Charts/></RutaPrivada>}/>
         </Route>
 
         <Route element={<RolUsuario rol={Roles.ADMIN} />}>
